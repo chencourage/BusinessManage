@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="LOG_SRV" value="yst-business-manager-web"/>
+	<property name="LOG_HOME" value="./logs/message"/>
+	<property name="LOG_LEVEL" value="INFO" />
+	<appender name="FILE-APPENDER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_HOME}/${LOG_SRV}.log</File>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [yst-business-manager-web] [%X{LOGGER_ID}] [%-5level] [%logger{50}] %L %msg%n</pattern>
+		</layout>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/%d{yyyy-MM-dd}/${LOG_SRV}.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<MaxHistory>7</MaxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>200MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	
+	<appender name="CONSOLE-APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [yst-business-manager-web] [%X{LOGGER_ID}] [%-5level] [%logger{50}] %L %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<logger name="org.springframework" level="ERROR" additivity="true"/>
+	<logger name="com.alibaba" level="ERROR" additivity="true"/>
+	<logger name="org.I0Itec.zkclient" level="ERROR" additivity="true"/>
+	<logger name="org.apache" level="ERROR" additivity="true"/>
+	<logger name="org.jboss.netty" level="ERROR" additivity="true"/>
+	<logger name="org.hibernate" level="ERROR" additivity="true"/>
+	<logger name="org.quartz" level="ERROR" additivity="true" />
+    <logger name="com.mchange" level="ERROR" additivity="true" />
+    <logger name="org.mchange" level="ERROR" additivity="true" />
+    <logger name="io.netty" level="ERROR" additivity="true" />
+	<logger name="com.google" level="ERROR" additivity="true" />
+	
+	<!-- sql -->
+	<logger name="org.mybatis" level="ERROR" additivity="true" />
+    <logger name="com.ibatis" level="ERROR" additivity="true" />
+    <logger name="java.sql" level="ERROR" additivity="true" />
+	<logger name="jdbc" level="ERROR" additivity="true"/>
+	<root level="${LOG_LEVEL}" additivity="false">   
+		<appender-ref ref="CONSOLE-APPENDER" />
+        <appender-ref ref="FILE-APPENDER" />
+    </root>
+</configuration>
